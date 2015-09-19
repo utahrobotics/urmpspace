@@ -1,4 +1,4 @@
 Alex Vasquez
 Computer Engineering
-ev117gm@gmail.com
+edgar.vasquez@utah.edu
 Interested in programming anything really.
