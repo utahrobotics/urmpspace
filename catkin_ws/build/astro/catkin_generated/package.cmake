@@ -1,7 +1,0 @@
-set(_CATKIN_CURRENT_PACKAGE "astro")
-set(astro_MAINTAINER "cole <cole@todo.todo>")
-set(astro_DEPRECATED "")
-set(astro_VERSION "0.0.1")
-set(astro_BUILD_DEPENDS "roscpp" "std_msgs")
-set(astro_RUN_DEPENDS "roscpp" "std_msgs")
-set(astro_BUILDTOOL_DEPENDS "catkin")

@@ -1,8 +1,0 @@
-prefix=/home/cole/CS/ros/catkin_ws/install
-
-Name: astro
-Description: Description of astro
-Version: 0.0.1
-Cflags: 
-Libs: -L/home/cole/CS/ros/catkin_ws/install/lib 
-Requires: 
