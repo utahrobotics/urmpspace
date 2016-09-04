@@ -1,110 +1,282 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="utf-8" />
+<!doctype html>
+<html class="no-js" lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Foundation for Sites</title>
+    <script type="text/javascript" src="js/eventemitter2.min.js"></script>
+    <script type="text/javascript" src="js/roslib.min.js"></script>
+    <link rel="stylesheet" href="css/foundation.css">
+    <link rel="stylesheet" href="css/app.css">
+    <script src="js/jquery.min.js"></script>
+    <script type="text/javascript" type="text/javascript">
+      // Connecting to ROS
+      // -----------------
 
-<script type="text/javascript" src="http://cdn.robotwebtools.org/EventEmitter2/current/eventemitter2.min.js"></script>
-<script type="text/javascript" src="http://cdn.robotwebtools.org/roslibjs/current/roslib.min.js"></script>
+      var ros = new ROSLIB.Ros({
+        url : 'ws://localhost:9090'
+      });
 
-<script type="text/javascript" type="text/javascript">
-  // Connecting to ROS
-  // -----------------
+      ros.on('connection', function() {
+        console.log('Connected to websocket server.');
+      });
 
-  var ros = new ROSLIB.Ros({
-    url : 'ws://localhost:9090'
-  });
+      ros.on('error', function(error) {
+        console.log('Error connecting to websocket server: ', error);
+      });
 
-  ros.on('connection', function() {
-    console.log('Connected to websocket server.');
-  });
+      ros.on('close', function() {
+        console.log('Connection to websocket server closed.');
+      });
 
-  ros.on('error', function(error) {
-    console.log('Error connecting to websocket server: ', error);
-  });
+      // Publishing a Topic
+      // ------------------
 
-  ros.on('close', function() {
-    console.log('Connection to websocket server closed.');
-  });
+      var cmdVel = new ROSLIB.Topic({
+        ros : ros,
+        name : '/cmd_vel',
+        messageType : 'geometry_msgs/Twist'
+      });
 
-  // Publishing a Topic
-  // ------------------
+      var twist = new ROSLIB.Message({
+        linear : {
+          x : 0.1,
+          y : 0.2,
+          z : 0.3
+        },
+        angular : {
+          x : -0.1,
+          y : -0.2,
+          z : -0.3
+        }
+      });
+      cmdVel.publish(twist);
 
-  var cmdVel = new ROSLIB.Topic({
-    ros : ros,
-    name : '/cmd_vel',
-    messageType : 'geometry_msgs/Twist'
-  });
+      // Subscribing to a Topic
+      // ----------------------
 
-  var twist = new ROSLIB.Message({
-    linear : {
-      x : 0.1,
-      y : 0.2,
-      z : 0.3
-    },
-    angular : {
-      x : -0.1,
-      y : -0.2,
-      z : -0.3
-    }
-  });
-  cmdVel.publish(twist);
+      var listener = new ROSLIB.Topic({
+        ros : ros,
+        name : '/listener',
+        messageType : 'std_msgs/String'
+      });
 
-  // Subscribing to a Topic
-  // ----------------------
+      listener.subscribe(function(message) {
+        console.log('Received message on ' + listener.name + ': ' + message.data);
+        listener.unsubscribe();
+      });
 
-  var listener = new ROSLIB.Topic({
-    ros : ros,
-    name : '/listener',
-    messageType : 'std_msgs/String'
-  });
+      // Calling a service
+      // -----------------
 
-  listener.subscribe(function(message) {
-    console.log('Received message on ' + listener.name + ': ' + message.data);
-    listener.unsubscribe();
-  });
+      /*var addTwoIntsClient = new ROSLIB.Service({
+        ros : ros,
+        name : '/add_two_ints',
+        serviceType : 'rospy_tutorials/AddTwoInts'
+      });
 
-  // Calling a service
-  // -----------------
+      var request = new ROSLIB.ServiceRequest({
+        a : 1,
+        b : 2
+      });
 
-  var addTwoIntsClient = new ROSLIB.Service({
-    ros : ros,
-    name : '/add_two_ints',
-    serviceType : 'rospy_tutorials/AddTwoInts'
-  });
+      addTwoIntsClient.callService(request, function(result) {
+        console.log('Result for service call on '
+          + addTwoIntsClient.name
+          + ': '
+          + result.sum);
+      });*/
 
-  var request = new ROSLIB.ServiceRequest({
-    a : 1,
-    b : 2
-  });
+      // Getting and setting a param value
+      // ---------------------------------
 
-  addTwoIntsClient.callService(request, function(result) {
-    console.log('Result for service call on '
-      + addTwoIntsClient.name
-      + ': '
-      + result.sum);
-  });
+      ros.getParams(function(params) {
+        console.log(params);
+      });
 
-  // Getting and setting a param value
-  // ---------------------------------
+      var maxVelX = new ROSLIB.Param({
+        ros : ros,
+        name : 'max_vel_y'
+      });
 
-  ros.getParams(function(params) {
-    console.log(params);
-  });
+      maxVelX.set(0.8);
+      maxVelX.get(function(value) {
+        console.log('MAX VAL: ' + value);
+      });
 
-  var maxVelX = new ROSLIB.Param({
-    ros : ros,
-    name : 'max_vel_y'
-  });
+    </script>
+    <style>
+      /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+      .row.content {height: 600px;}
 
-  maxVelX.set(0.8);
-  maxVelX.get(function(value) {
-    console.log('MAX VAL: ' + value);
-  });
-</script>
-</head>
+      /* Set gray background color and 100% height */
+      .sidenav {
+        background-color: #f1f1f1;
+      }
 
-<body>
-  <h1>Simple roslib Example</h1>
-  <p>Check your Web Console for output.</p>
-</body>
+      /* On small screens, set height to 'auto' for the grid */
+      @media screen and (max-width: 767px) {
+        .row.content {height: auto;}
+      }
+    </style>
+  </head>
+  <body>
+    <div class="row">
+      <div class="large-12 columns">
+        <h1>Welcome to Foundation</h1>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="large-12 columns">
+        <div class="callout">
+          <h3>We&rsquo;re stoked you want to try Foundation! </h3>
+          <p>To get going, this file (index.html) includes some basic styles you can modify, play around with, or totally destroy to get going.</p>
+          <p>Once you've exhausted the fun in this document, you should check out:</p>
+          <div class="row">
+            <div class="large-4 medium-4 columns">
+              <p><a href="http://foundation.zurb.com/docs">Foundation Documentation</a><br />Everything you need to know about using the framework.</p>
+            </div>
+            <div class="large-4 medium-4 columns">
+              <p><a href="http://zurb.com/university/code-skills">Foundation Code Skills</a><br />These online courses offer you a chance to better understand how Foundation works and how you can master it to create awesome projects.</p>
+            </div>
+            <div class="large-4 medium-4 columns">
+              <p><a href="http://foundation.zurb.com/forum">Foundation Forum</a><br />Join the Foundation community to ask a question or show off your knowlege.</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="large-4 medium-4 medium-push-2 columns">
+              <p><a href="http://github.com/zurb/foundation">Foundation on Github</a><br />Latest code, issue reports, feature requests and more.</p>
+            </div>
+            <div class="large-4 medium-4 medium-pull-2 columns">
+              <p><a href="https://twitter.com/ZURBfoundation">@zurbfoundation</a><br />Ping us on Twitter if you have questions. When you build something with this we'd love to see it (and send you a totally boss sticker).</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="large-8 medium-8 columns">
+        <h5>Here&rsquo;s your basic grid:</h5>
+        <!-- Grid Example -->
+
+        <div class="row">
+          <div class="large-12 columns">
+            <div class="primary callout">
+              <p><strong>This is a twelve column section in a row.</strong> Each of these includes a div.callout element so you can see where the columns are - it's not required at all for the grid.</p>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="large-6 medium-6 columns">
+            <div class="primary callout">
+              <p>Six columns</p>
+            </div>
+          </div>
+          <div class="large-6 medium-6 columns">
+            <div class="primary callout">
+              <p>Six columns</p>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="large-4 medium-4 small-4 columns">
+            <div class="primary callout">
+              <p>Four columns</p>
+            </div>
+          </div>
+          <div class="large-4 medium-4 small-4 columns">
+            <div class="primary callout">
+              <p>Four columns</p>
+            </div>
+          </div>
+          <div class="large-4 medium-4 small-4 columns">
+            <div class="primary callout">
+              <p>Four columns</p>
+            </div>
+          </div>
+        </div>
+
+        <hr />
+
+        <h5>We bet you&rsquo;ll need a form somewhere:</h5>
+        <form>
+          <div class="row">
+            <div class="large-12 columns">
+              <label>Input Label</label>
+              <input type="text" placeholder="large-12.columns" />
+            </div>
+          </div>
+          <div class="row">
+            <div class="large-4 medium-4 columns">
+              <label>Input Label</label>
+              <input type="text" placeholder="large-4.columns" />
+            </div>
+            <div class="large-4 medium-4 columns">
+              <label>Input Label</label>
+              <input type="text" placeholder="large-4.columns" />
+            </div>
+            <div class="large-4 medium-4 columns">
+              <div class="row collapse">
+                <label>Input Label</label>
+                <div class="input-group">
+                  <input type="text" placeholder="small-9.columns" class="input-group-field" />
+                  <span class="input-group-label">.com</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="large-12 columns">
+              <label>Select Box</label>
+              <select>
+                <option value="husker">Husker</option>
+                <option value="starbuck">Starbuck</option>
+                <option value="hotdog">Hot Dog</option>
+                <option value="apollo">Apollo</option>
+              </select>
+            </div>
+          </div>
+          <div class="row">
+            <div class="large-6 medium-6 columns">
+              <label>Choose Your Favorite</label>
+              <input type="radio" name="pokemon" value="Red" id="pokemonRed"><label for="pokemonRed">Radio 1</label>
+              <input type="radio" name="pokemon" value="Blue" id="pokemonBlue"><label for="pokemonBlue">Radio 2</label>
+            </div>
+            <div class="large-6 medium-6 columns">
+              <label>Check these out</label>
+              <input id="checkbox1" type="checkbox"><label for="checkbox1">Checkbox 1</label>
+              <input id="checkbox2" type="checkbox"><label for="checkbox2">Checkbox 2</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="large-12 columns">
+              <label>Textarea Label</label>
+              <textarea placeholder="small-12.columns"></textarea>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <div class="large-4 medium-4 columns">
+        <h5>Try one of these buttons:</h5>
+        <p><a href="#" class="button">Simple Button</a><br/>
+        <a href="#" class="success button">Success Btn</a><br/>
+        <a href="#" class="alert button">Alert Btn</a><br/>
+        <a href="#" class="secondary button">Secondary Btn</a></p>
+        <div class="callout">
+          <h5>So many components, girl!</h5>
+          <p>A whole kitchen sink of goodies comes with Foundation. Check out the docs to see them all, along with details on making them your own.</p>
+          <a href="http://foundation.zurb.com/sites/docs/" class="small button">Go to Foundation Docs</a>
+        </div>
+      </div>
+    </div>
+
+    <script src="js/vendor/jquery.js"></script>
+    <script src="js/vendor/what-input.js"></script>
+    <script src="js/vendor/foundation.js"></script>
+    <script src="js/app.js"></script>
+  </body>
 </html>
