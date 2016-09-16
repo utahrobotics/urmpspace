@@ -1,6 +1,7 @@
 # robotic-mining
 The Utah Robotic Mining Project
 
+##Changing for example!
 ##These packages must be installed in order for catkin_make to run correctly
 sudo apt-get install ros-kinetic-find-object-2d
 sudo apt-get install libusb-1.0-0 libusb-1.0-0-dev
