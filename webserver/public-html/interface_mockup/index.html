@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <title>GSZ Interface Demonstration</title>
+    <link rel="stylesheet" type="text/css" href="stylesheet.css">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Ubuntu:regular,bold&subset=Latin">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  </head>
+  <body>
+    <div id="debug" class="debug"><i class="material-icons">visibility</i></div>
+    <div id="debug-console" class="debug-console">
+      <p>Debug Console</p>
+      <form>
+        <ul>
+          <li>View type:
+            <select id="configView">
+              <option>Simple</option>
+              <option>Complex</option>
+            </select>
+          </li>
+        </ul>
+      </form>
+    </div>
+	<div class="content">
+    <a class="text-link" href="../index.html">Back to main site</a>
+		<h1>Robot Interface</h1>
+		<h2>Controls</h2>
+		<div class="flexbox">
+			<div class="interface-btns">
+				<div id="top"></div>
+				<div id="mid"></div>
+				<div id="bot"></div>
+			</div>
+	   </div>
+		<br>
+		<br>
+		<h2>Custom Command Input</h2>
+		<form>
+			<input type="text" size="30" class="command-input">
+			<br>
+			<input type="submit" value="Send Command">
+    </form>
+  </div>
+  <footer id="footer"></footer>
+  <script src="main.js"></script>
+	</body>
+</html>
