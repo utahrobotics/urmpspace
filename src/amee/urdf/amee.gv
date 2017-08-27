@@ -1,0 +1,47 @@
+digraph G {
+node [shape=box];
+"base_link" [label="base_link"];
+"chassis" [label="chassis"];
+"imu_link" [label="imu_link"];
+"left_front_wheel_link" [label="left_front_wheel_link"];
+"left_rear_wheel_link" [label="left_rear_wheel_link"];
+"right_front_wheel_link" [label="right_front_wheel_link"];
+"right_rear_wheel_link" [label="right_rear_wheel_link"];
+"sled_hoz" [label="sled_hoz"];
+"sled_ver" [label="sled_ver"];
+"arm_upper" [label="arm_upper"];
+"arm_lower" [label="arm_lower"];
+"bucket" [label="bucket"];
+"ZED_left_camera" [label="ZED_left_camera"];
+"ZED_center" [label="ZED_center"];
+"ZED_right_camera" [label="ZED_right_camera"];
+node [shape=ellipse, color=blue, fontcolor=blue];
+"base_link" -> "chassis_base_joint" [label="xyz: 0 0 0.165375 \nrpy: 0 -0 0"]
+"chassis_base_joint" -> "chassis"
+"chassis" -> "imu_joint" [label="xyz: 0 0 0 \nrpy: 0 -0 0"]
+"imu_joint" -> "imu_link"
+"chassis" -> "left_front_wheel" [label="xyz: 0.2525 0.305 0 \nrpy: 0 -0 0"]
+"left_front_wheel" -> "left_front_wheel_link"
+"chassis" -> "left_rear_wheel" [label="xyz: -0.2525 0.305 0 \nrpy: 0 -0 0"]
+"left_rear_wheel" -> "left_rear_wheel_link"
+"chassis" -> "right_front_wheel" [label="xyz: 0.2525 -0.305 0 \nrpy: -3.14159 -0 0"]
+"right_front_wheel" -> "right_front_wheel_link"
+"chassis" -> "right_rear_wheel" [label="xyz: -0.2525 -0.305 0 \nrpy: -3.14159 -0 0"]
+"right_rear_wheel" -> "right_rear_wheel_link"
+"chassis" -> "sled_joint" [label="xyz: 0 0 0.08825 \nrpy: 0 -0 0"]
+"sled_joint" -> "sled_hoz"
+"sled_hoz" -> "sled_ver_joint" [label="xyz: -0.10225 0 0.23275 \nrpy: 0 -0 0"]
+"sled_ver_joint" -> "sled_ver"
+"sled_ver" -> "arm_joint" [label="xyz: 0 0 0.2125 \nrpy: 0 -0 0"]
+"arm_joint" -> "arm_upper"
+"arm_upper" -> "arm_lower_joint" [label="xyz: 0.577627 0 -0.155563 \nrpy: 0 0.785398 0"]
+"arm_lower_joint" -> "arm_lower"
+"arm_lower" -> "bucket_joint" [label="xyz: 0.236127 0 -0.032 \nrpy: 0 -0 0"]
+"bucket_joint" -> "bucket"
+"arm_lower" -> "zed_joint" [label="xyz: -0.259272 0.06775 0 \nrpy: 0 -0.785398 0"]
+"zed_joint" -> "ZED_left_camera"
+"ZED_left_camera" -> "ZED_center_joint" [label="xyz: 0 -0.06 0 \nrpy: 0 -0 0"]
+"ZED_center_joint" -> "ZED_center"
+"ZED_left_camera" -> "ZED_right_camera_joint" [label="xyz: 0 -0.12 0 \nrpy: 0 -0 0"]
+"ZED_right_camera_joint" -> "ZED_right_camera"
+}

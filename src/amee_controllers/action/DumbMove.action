@@ -1,0 +1,13 @@
+# Goal
+float32 x # positive away from collector bin
+float32 y # positive left of the collector bin looking towards digging area
+float32 deg # the desired angle at the final (x,y) location. positive counter clockwise
+# float32 max_speed # max speed for cmd_vel. defaults to 2.0 if 0/not set
+---
+# Result
+string exit_message
+---
+# Feedback
+float32 curr_x
+float32 curr_y
+float32 curr_deg

@@ -1,0 +1,91 @@
+<?xml version="1.0"?>
+<launch>
+
+    <!-- <include file="$(find zed_wrapper)/launch/zed_robot.launch">
+      <arg name="svo_file" value="" />
+      <arg name="zed_id" value="0" />
+    </include> -->
+
+<!--
+<arg name="input" default="/dev/video0"/>
+
+  <node name="usb_cam" pkg="usb_cam" type="usb_cam_node" output="screen">
+    <param name="video_device" value="$(arg input)" />
+    <param name="image_width" value="640" />
+    <param name="image_height" value="480" />
+    <param name="pixel_format" value="yuyv" />
+    <param name="camera_frame_id" value="usb_cam" />
+    <param name="io_method" value="mmap"/>
+  </node>
+-->
+
+  <!-- <arg name="rvizconfig" default="$(find emcee_description)/rviz/urdf.rviz"/> -->
+  <!-- <node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rvizconfig)" required="true" /> -->
+  <!-- <node name="rviz" pkg="rviz" type="rviz" required="true" /> -->
+
+  <arg name="gui" default="0"/>
+  <!-- ArUco mapping -->
+  <node pkg="aruco_mapping" type="aruco_mapping" name="aruco_mapping" output="screen">
+    <remap from="/image_raw" to="/zed/left/image_raw_color"/>
+
+    <param name="calibration_file" type="string" value="$(find aruco_mapping)/data/zed.ini" />
+    <param name="num_of_markers" type="int" value="10" /> <!-- DON'T CHANGE THIS VALUE. IT BREAKS IF YOU HAVE MORE THAN Ns TAGS. -->
+    <param name="marker_size" type="double" value="0.268"/>
+    <param name="space_type" type="string" value="plane" />
+    <param name="roi_allowed" type="bool" value="false" />
+    <param name="roi_x" type="int" value="0" />
+    <param name="roi_y" type="int" value="0" />
+    <param name="roi_width" type="int" value="640" />
+    <param name="roi_height" type="int" value="480" />
+    <param name="gui" type="bool" value="$(arg gui)" />
+
+    <!-- ArUco tag ids  -->
+    <param name="left_id" type="int" value="84"/>
+    <param name="middle_id" type="int" value="77"/>
+    <param name="right_id" type="int" value="96"/>
+
+    <!-- How far the tags are from the center. Somehow I messed up the
+    Illustrator file for this and so they were slightly off on the board we printed -->
+    <param name="left_tag_offset" type="double" value="0.48"/>
+    <param name="right_tag_offset" type="double" value="0.46"/>
+
+
+    <!-- Some parameters I was tweaking to get the corrct offsets -->
+    <!-- g is for global. l is for local.  This was a hacky way to quickly test things-->
+    <param name="gcartx" type="double" value="0.0"/>
+    <param name="gcarty" type="double" value="0.0"/>
+    <!-- Start z position (mounting point on collector bin is roughly this high) -->
+    <param name="gcartz" type="double" value="0.3"/>
+
+    <param name="lcartx" type="double" value="0.0"/>
+    <param name="lcarty" type="double" value="0.0"/>
+    <param name="lcartz" type="double" value="0.3"/>
+
+    <!-- Quaternion angle offset. Quaternions are strange -->
+    <param name="globx" type="double" value="0.0"/>
+    <param name="globy" type="double" value="-0.707"/>
+    <param name="globz" type="double" value="0.0"/>
+    <param name="globw" type="double" value="0.707"/>
+
+    <param name="locx" type="double" value="0.0"/>
+    <param name="locy" type="double" value="-0.707"/>
+    <param name="locz" type="double" value="0.0"/>
+    <param name="locw" type="double" value="0.707"/>
+  </node>
+
+  <node pkg="aruco_mapping" type="aruco_helper" name="aruco_helper" output="screen">
+    <param name="qx" type="double" value="0.0"/>
+    <param name="qy" type="double" value="0.0"/>
+    <param name="qz" type="double" value="0.0"/>
+    <param name="qw" type="double" value="1.0"/>
+<!--
+    <param name="qx" type="double" value="0.500"/>
+    <param name="qy" type="double" value="-0.500"/>
+    <param name="qz" type="double" value="0.500"/>
+    <param name="qw" type="double" value="0.500"/>
+-->
+  </node>
+<!--
+  <node pkg="aruco_mapping" type="cole_helper" name="cole_helper" output="screen"/>
+-->
+</launch>

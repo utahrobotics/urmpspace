@@ -1,0 +1,22 @@
+<launch>
+  <node pkg="joy" type="joy_node" name="joy_node">
+    <param name="dev" type="string" value="/dev/input/js0"/>
+    <param name="deadzone" value="0.12"/>
+    <param name="autorepeat_rate" value="1.0"/>
+  </node>
+
+  <!-- Axes -->
+  <param name="left_vertical_axis" value="4" type="int"/>
+  <param name="right_vertical_axis" value="1" type="int"/>
+  <param name="arm_forward_axis" value="5" type="int"/>
+  <param name="arm_backward_axis" value="2" type="int"/>
+  <!-- Buttons -->
+  <param name="sled_forward_button" value="0" type="int"/>
+  <param name="sled_backward_button" value="3" type="int"/>
+  <param name="bucket_forward_button" value="5" type="int"/>
+  <param name="bucket_backward_button" value="4" type="int"/>
+
+  <param name="scale_linear" value="1" type="double"/>
+  <param name="scale_angular" value="1" type="double"/>
+  <node pkg="amee" type="teleop_control" name="teleop"/>
+</launch>

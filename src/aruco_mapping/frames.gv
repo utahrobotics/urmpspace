@@ -1,0 +1,13 @@
+digraph G {
+"world" -> "marker_0"[label="Broadcaster: /aruco_mapping\nAverage rate: 35.763 Hz\nMost recent transform: 1494617288.824 ( 0.063 sec old)\nBuffer length: 4.865 sec\n"];
+"marker_0" -> "camera_0"[label="Broadcaster: /aruco_mapping\nAverage rate: 35.763 Hz\nMost recent transform: 1494617288.824 ( 0.063 sec old)\nBuffer length: 4.865 sec\n"];
+"world" -> "marker_globe_0"[label="Broadcaster: /aruco_mapping\nAverage rate: 35.762 Hz\nMost recent transform: 1494617288.824 ( 0.063 sec old)\nBuffer length: 4.865 sec\n"];
+"marker_0" -> "marker_1"[label="Broadcaster: /aruco_mapping\nAverage rate: 35.762 Hz\nMost recent transform: 1494617288.825 ( 0.063 sec old)\nBuffer length: 4.866 sec\n"];
+"marker_1" -> "camera_1"[label="Broadcaster: /aruco_mapping\nAverage rate: 35.761 Hz\nMost recent transform: 1494617288.825 ( 0.063 sec old)\nBuffer length: 4.866 sec\n"];
+"world" -> "marker_globe_1"[label="Broadcaster: /aruco_mapping\nAverage rate: 35.761 Hz\nMost recent transform: 1494617288.825 ( 0.063 sec old)\nBuffer length: 4.866 sec\n"];
+"world" -> "camera_position"[label="Broadcaster: /aruco_mapping\nAverage rate: 35.760 Hz\nMost recent transform: 1494617288.825 ( 0.063 sec old)\nBuffer length: 4.866 sec\n"];
+edge [style=invis];
+ subgraph cluster_legend { style=bold; color=black; label ="view_frames Result";
+"Recorded at time: 1494617288.888"[ shape=plaintext ] ;
+ }->"world";
+}

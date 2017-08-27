@@ -1,6 +1,0 @@
-[submodule "urmpspace/src/imu_tools"]
-	path = urmpspace/src/imu_tools
-	url = ../../ccny-ros-pkg/imu_tools.git
-[submodule "urmpspace/src/phidgets_drivers"]
-	path = urmpspace/src/phidgets_drivers
-	url = ../../ccny-ros-pkg/phidgets_drivers.git

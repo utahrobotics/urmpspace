@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<launch>
+    <!-- Load configuration for linear actuators -->
+    <rosparam command="load" file="$(find phidgets_ros)/config/config.yaml" />
+    <node pkg="phidgets_ros" type="phidget_node.py" name="phidget_node" output="screen"/>
+
+</launch>

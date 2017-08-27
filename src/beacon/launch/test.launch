@@ -1,0 +1,18 @@
+<launch>
+  <!-- <include file="$(find amee)/launch/display.launch"/> -->
+  <!-- <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" /> -->
+  <node name="amee_state_publisher" pkg="amee" type="state_publisher"/>
+  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" />
+
+
+  <arg name="model" default="$(find amee)/urdf/amee.urdf.xacro"/>
+  <arg name="gui" default="true" />
+  <arg name="rvizconfig" default="$(find amee)/rviz/urdf.rviz" />
+
+  <param name="robot_description" command="xacro --inorder $(arg model)" />
+  <param name="use_gui" value="$(arg gui)"/>
+
+  <!-- <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" /> -->
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" />
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rvizconfig)" required="true" />
+</launch>

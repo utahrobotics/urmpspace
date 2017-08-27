@@ -1,0 +1,56 @@
+
+# Parameters for position controllers of actuators
+
+# Position limits for all of the actuators. Arm may not have any
+# limits, but bucket will for the inflection points and the sled will
+# for not driving off
+
+# low: lowest value the sensor will have
+# high: highest value the sensor should have
+# goal_range: the acceptable differnece between goal and current pos
+
+# PID control stuff
+# Currently only p and i are implemented. The system is so damped we
+# probably will only need p
+
+# NOTE: these limits are all best case scenario
+# If the arm is not at the right height, the bucket positions can still cause
+# inflection points
+
+control:
+  sensor_timeout: 1.5  # time to wait for sensor publishing before pausing action
+
+  #stall_timeout: 10 # time to wait to move beyond stall threshold value
+  stall_timeout: 2 # time to wait to move beyond stall threshold value
+  stall_threshold: 4 # mm to move in the stall timeout time
+
+  arm:
+    # low: 10
+    # high: 100
+    low: 2 # just for testing without the sled. actual is maybe 0
+    high: 290 # soft limit, we can go to the top. But do we need to?
+    goal_range: 1
+    pid:
+      p: 0.08
+      i: 0
+      d: 0
+  bucket:
+    low: 32 # we can recover from as low as 30, but this gives us some safety factor, espeically with a full bucket
+    high: 145 # (148 is what we want for digging) the arm must be in the correct position or terrible things will happen
+    # low: 10
+    # high: 100
+    goal_range: 1
+    pid:
+      p: 0.08
+      i: 0
+      d: 0
+  sled:
+    low: 1  # real are 0, 300. But just for safety
+    high: 298
+    # low: 0
+    # high: 0
+    goal_range: 1.5
+    pid:
+      p: 0.08
+      i: 0
+      d: 0

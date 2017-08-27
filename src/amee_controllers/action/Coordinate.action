@@ -1,0 +1,20 @@
+# Goal
+float32 arm
+float32 bucket
+float32 sled
+---
+# Result
+float32 total_time
+string exit_message # "ok", "quit for some reason", "etc"
+---
+# Feedback
+float32 arm_pos
+float32 bucket_pos
+float32 sled_pos
+bool arm_paused
+bool sled_paused
+bool arm_done
+bool bucket_done
+bool sled_done
+float32 runtime
+string status_message

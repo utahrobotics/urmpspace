@@ -1,0 +1,13 @@
+# Goal
+#TODO: later, see if we want to add the acceptable goal_range here
+float32 pos # actuator position to command motor to
+---
+# Result
+float32 total_time
+float32 end_pos
+string exit_message # "ok", "quit for some reason", "etc"
+---
+# Feedback
+float32 current_pos
+float32 runtime
+string status_message

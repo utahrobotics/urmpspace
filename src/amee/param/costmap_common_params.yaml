@@ -1,0 +1,10 @@
+obstacle_range: 2.5
+raytrace_range: 3.0
+footprint: [[-0.375, -0.375], [0.75, -0.375], [0.75, 0.375], [-0.375, 0.375]]  # if the robot is not circular
+#robot_radius: ir_of_robot
+inflation_radius: 0.375
+
+observation_sources: obstacles
+
+obstacles: {sensor_frame: /zed_current_frame, data_type: PointCloud2, topic: /obstacles_cloud, marking: true, clearing: true, max_obstacle_height: 1.0}
+controller_frequency: 10.0

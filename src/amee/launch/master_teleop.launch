@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<launch>
+  <include file="$(find amee)/launch/teleop_control.launch" />
+  <include file="$(find pololu_ros)/launch/daisy_node.launch" />
+  <include file="$(find roboclaw_serial_ros)/launch/roboclaw.launch" />
+</launch>

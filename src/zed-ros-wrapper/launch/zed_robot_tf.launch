@@ -1,0 +1,15 @@
+<launch>
+  <arg name="tf_prefix" default="" />
+  <arg name="pi/2" value="1.5707963267948966" />
+  <arg name="optical_rotate" value="0 0 0 -$(arg pi/2) 0 -$(arg pi/2)" />
+
+  <node pkg="tf2_ros" type="static_transform_publisher" name="zed_base_link2"
+    args="0.25 0 0.65 0 0 0 1 odom zed_initial_frame" />
+
+  <node pkg="tf2_ros" type="static_transform_publisher" name="zed_base_link3"
+    args="0 0 0 0 0 0 1 ZED_left_camera zed_current_frame" />
+
+  <node pkg="tf2_ros" type="static_transform_publisher" name="zed_base_link4"
+    args="0 0 0 -$(arg pi/2) 0 -$(arg pi/2) zed_current_frame zed_depth_frame" />
+
+</launch>

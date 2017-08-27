@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<launch>
+
+    <include file="$(find zed_wrapper)/launch/zed_robot.launch">
+      <arg name="svo_file" value="" />
+      <arg name="zed_id" value="0" />
+    </include>
+</launch>

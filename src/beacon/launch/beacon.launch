@@ -1,0 +1,4 @@
+<launch>
+  <param name="initial_angle" value="0" type="double"/>
+  <node name="beacon" pkg="beacon" type="beacon_node" output="screen"/>
+</launch>

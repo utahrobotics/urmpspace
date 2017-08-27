@@ -1,0 +1,40 @@
+# Configuration for linear actuators. These are used to get sensor data and then
+# scale the value to represent the actual position in mm
+
+# sensor_index : sensor input that the device is plugged into on the phidgets board
+# min: minimum potentiometer value (fully retracted)
+# max: maximum potentiometer value (fully extended)
+# length: total lenght of device in mm
+
+
+# NOTE: the encoder index and sensor index can hold the same value as they
+# are referencing different boards
+
+phidgets:
+    sled:
+      ticks_per_mm: 10.15 
+      rear_pos: 0
+      front_pos: 300 
+      encoder_index:
+        left: 0 
+        right: 1
+    arm_left:
+      sensor_index: 4
+      min: 400
+      max: 598
+      length: 300
+    arm_right:
+      sensor_index: 5
+      min: 393
+      max: 591
+      length: 300
+    bucket_left:
+      sensor_index: 6
+      min: 444
+      max: 543
+      length: 150
+    bucket_right:
+      sensor_index: 7
+      min: 462
+      max: 561
+      length: 150
