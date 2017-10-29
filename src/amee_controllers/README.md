@@ -34,7 +34,7 @@ the positions are, just by editting a yaml file.
 
 See the smach_proto.png for the overall layout look.
 
-![This was the dream](https://github.com/jrobe/robotic-mining/blob/Kinetic/urmpspace/src/amee_controllers/smach_proto.png)
+![This was the dream](https://github.com/utahrobotics/usr_ws/blob/kinetic-devel/src/amee_controllers/smach_proto.png)
 
 
 ## position_action_server
